@@ -7,31 +7,35 @@ on:
   push:
     branches: [ dev ]
 
+env:
+  AZURE_FUNCTIONAPP_NAME: 't19-ratingsapp' # set this to your application's name
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'RatingsAPI/'   # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: '3.7'                 # set this to the python version to use (supports 3.6, 3.7, 3.8)
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
-    - name: 'Login via Azure CLI'
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.SCM_CREDENTIALS }}
     - name: Setup Python 3.7
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: ${{ env.PYTHON_VERSION }}
     - name: 'Run pip'
       shell: bash
       run: |
         # If your function app project is not located in your repository's root
         # Please change your directory for pip in pushd
-        pushd RatingsAPI/
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         python -m pip install --upgrade pip
-        pip install -r requirements.txt --target=".python_packages/lib/python3.7/site-packages"
+        pip install -r requirements.txt --target=".python_packages/lib/site-packages"
         popd
+        
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
       with:
-        app-name: t19-ratingsapp
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.SCM_CREDENTIALS }}
