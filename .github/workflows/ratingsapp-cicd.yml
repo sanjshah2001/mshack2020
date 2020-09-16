@@ -14,11 +14,11 @@ jobs:
 
     steps:
     - name: 'Login via Azure CLI'
-      uses: azure/login@v2
+      uses: azure/login@v1
       with:
         creds: ${{ secrets.SCM_CREDENTIALS }}
     - name: Setup Python 3.7
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v1
       with:
         python-version: 3.7
     - name: 'Run pip'
@@ -31,7 +31,7 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/python3.7/site-packages"
         popd
     - name: 'Run Azure Functions Action'
-      uses: Azure/functions-action@v2
+      uses: Azure/functions-action@v1
       id: fa
       with:
         app-name: t19-ratingsapp
