@@ -25,7 +25,8 @@ jobs:
     - name: 'Run pip'
       shell: bash
       run: |
-        ls -la
+        ls -la ../
+        pwd
         # If your function app project is not located in your repository's root
         # Please change your directory for pip in pushd
         pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
