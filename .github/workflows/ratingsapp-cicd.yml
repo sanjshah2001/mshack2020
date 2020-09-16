@@ -9,7 +9,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 't19-ratingsapp' # set this to your application's name
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'RatingsAPI'   # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'RatingsAPI/'   # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.7'                 # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
@@ -28,11 +28,11 @@ jobs:
     - name: 'Run pip'
       shell: bash
       run: |
-        ls -la ../
         pwd
+        ls -la
         # If your function app project is not located in your repository's root
         # Please change your directory for pip in pushd
-        pushd '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+        pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         python -m pip install --upgrade pip
         pip install -r requirements.txt --target=".python_packages/lib/site-packages"
         popd
