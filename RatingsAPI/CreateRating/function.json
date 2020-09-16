@@ -17,7 +17,8 @@
       "direction": "out",
       "ConnectionStringSetting": "CosmosDBConnection",
       "databaseName": "ratingsapi",
-      "collectionName": "ratings"
+      "collectionName": "ratings",
+      "createIfNotExists": true
       
     },
     {
