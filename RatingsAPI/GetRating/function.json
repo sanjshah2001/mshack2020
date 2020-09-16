@@ -14,11 +14,12 @@
     {
       "name": "cosmos",
       "type": "cosmosDB",
-      "direction": "out",
+      "direction": "in",
       "ConnectionStringSetting": "CosmosDBConnection",
       "databaseName": "ratingsapi",
       "collectionName": "ratings",
-      "createIfNotExists": true
+      "Id": "{Query.id}",
+      "PartitionKey": "{Query.productId}"
       
     },
     {
