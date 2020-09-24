@@ -5,7 +5,7 @@ name: Python application
 
 on:
   push:
-    branches: [ dev ]
+    branches: [ dev, master ]
 
 env:
   AZURE_FUNCTIONAPP_NAME: 't19-ratingsapp' # set this to your application's name
